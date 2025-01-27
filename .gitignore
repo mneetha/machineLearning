@@ -1,0 +1,16 @@
+# Ignore PyCharm/IntelliJ IDEA files
+.idea/
+
+# Ignore Python bytecode
+*.pyc
+__pycache__/
+
+# Ignore virtual environment
+venv/
+.venv/
+
+# Ignore log files
+*.log
+
+# Ignore other system files
+.DS_Store  
