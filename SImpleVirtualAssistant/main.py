@@ -56,7 +56,7 @@ mappings = {
     'todoremove': todo_remove,
     'goodbye': bye
 }
-assistant = BasicAssistant(intents_data="short_intents.json", method_mappings=mappings)
+assistant = BasicAssistant(intents_data="intents.json", method_mappings=mappings)
 assistant.fit_model()
 assistant.save_model()
 
