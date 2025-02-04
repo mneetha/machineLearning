@@ -26,3 +26,7 @@ train_data.join(pd.get_dummies(train_data.ocean_proximity)).drop(['ocean_proximi
 
 # plt.figure(figsize=(15,8))
 # sns.scatterplot(x="latitude", y="longitude", data=train_data, hue="median_house_value", palette="coolwarm")
+
+train_data["bedroom_ratio"] = train_data["total_bedrooms"]/train_data["total_rooms"]
+train_data["household_rooms"] = train_data["total_rooms"]/train_data["households"]
+    
