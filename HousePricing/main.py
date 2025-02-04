@@ -5,6 +5,8 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import GridSearchCV
 
 data = pd.read_csv('housing.csv')
 
@@ -56,8 +58,30 @@ test_data.join(pd.get_dummies(test_data.ocean_proximity)).drop(['ocean_proximity
 test_data["bedroom_ratio"] = test_data["total_bedrooms"]/test_data["total_rooms"]
 test_data["household_rooms"] = test_data["total_rooms"]/test_data["households"]
 X_test, y_test = test_data.drop(['median_house_value'], axis=1), test_data['median_house_value']
+#modeling
 X_test_s = scaler.transform(X_test)
 reg.score(X_test,y_test)
 
 reg.score(X_test_s, y_test)
+
+#RandomForestRegressor
+forest = RandomForestRegressor()
+forest.fit(X_train_s, y_train)
+
+forest = RandomForestRegressor()
+param_grid = {
+    'n_estimators': [100,200,300],
+    # 'max_features': [8,12,20],
+    'min_sample_split':[2,4],
+    'max_depth': [None,4,8]
+}
+
+grid_search = GridSearchCV(
+    forest, param_grid, cv=5, scoring='neg_mean_squared_error', return_train_score=True
+)
+grid_search.fit(X_train_s, y_train)
+
+best_forest = grid_search.best_estimator_
+best_forest.score(X_test_s, y_test)
+
 
